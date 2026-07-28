@@ -135,7 +135,14 @@ export default function MythosDisplay({ result, onRestart }: { result: MythosRes
         <motion.div variants={itemVariants} className="w-full bg-white/5 border border-white/10 backdrop-blur-xl p-8 mb-6 rounded-none">
           <p className="text-xs tracking-[0.3em] uppercase text-[#FF4D00] mb-4">Prophecy</p>
           <div className="text-lg leading-relaxed text-white/90 font-light">
-            <Typewriter text={result.prophecy} active={stage >= 2} />
+            <Typewriter text={result.prophecy} active={stage >= 2} onDone={() => setStage((s) => Math.max(s, 3))} />
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="w-full bg-white/5 border border-white/10 backdrop-blur-xl p-8 mb-6 rounded-none">
+          <p className="text-xs tracking-[0.3em] uppercase text-[#007AFF] mb-4">Doom Prophecy</p>
+          <div className="text-lg leading-relaxed text-white/90 font-light">
+            <Typewriter text={result.doom} active={stage >= 3} />
           </div>
         </motion.div>
 

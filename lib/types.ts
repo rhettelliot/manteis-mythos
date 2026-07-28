@@ -4,6 +4,7 @@ export interface MythosResult {
   origin: string;
   current: string;
   prophecy: string;
+  doom: string;
   answers: string[];
   seed: string;
 }
