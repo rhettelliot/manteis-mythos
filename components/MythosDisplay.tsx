@@ -1,184 +1,154 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { MythosResult } from "@/lib/types";
-import { encodeAnswers } from "@/lib/mythosEngine";
-import Sigil from "@/components/Sigil";
+import { useState, useCallback } from 'react'
+import { motion } from 'framer-motion'
+import Sigil from '@/components/Sigil'
+import Typewriter from '@/components/Typewriter'
+import GlassPanel from '@/components/GlassPanel'
+import { generateShareURL } from '@/lib/share'
+import type { MythosData } from '@/lib/types'
 
-interface TypewriterProps {
-  text: string;
-  speed?: number;
-  onDone?: () => void;
-  startDelay?: number;
-  active?: boolean;
+interface MythosDisplayProps {
+  mythos: MythosData
+  answers: string[]
+  onReset: () => void
 }
 
-function Typewriter({ text, speed = 18, onDone, startDelay = 0, active = true }: TypewriterProps) {
-  const [displayed, setDisplayed] = useState("");
+export default function MythosDisplay({ mythos, answers, onReset }: MythosDisplayProps) {
+  const [completedChapters, setCompletedChapters] = useState(0)
+  const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle')
 
-  useEffect(() => {
-    if (!active) return;
-    if (!text) {
-      onDone?.();
-      return;
+  const handleChapterComplete = useCallback(() => {
+    setCompletedChapters((c) => Math.min(c + 1, 3))
+  }, [])
+
+  const handleShare = async () => {
+    if (typeof window === 'undefined') return
+
+    const hash = generateShareURL(answers)
+    const url = `${window.location.origin}${window.location.pathname}${hash}`
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(url)
+      } else {
+        const textArea = document.createElement('textarea')
+        textArea.value = url
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+      }
+      setShareStatus('copied')
+      setTimeout(() => setShareStatus('idle'), 2000)
+    } catch {
+      setShareStatus('idle')
     }
+  }
 
-    let index = 0;
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
-    let intervalId: ReturnType<typeof setInterval> | null = null;
+  const handlePrint = () => {
+    if (typeof window !== 'undefined') {
+      window.print()
+    }
+  }
 
-    timeoutId = setTimeout(() => {
-      intervalId = setInterval(() => {
-        index += 1;
-        setDisplayed(text.slice(0, index));
-        if (index >= text.length) {
-          if (intervalId) clearInterval(intervalId);
-          onDone?.();
-        }
-      }, speed);
-    }, startDelay);
-
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [text, speed, onDone, startDelay, active]);
+  const chapters = [
+    { label: 'Origin', text: mythos.origin },
+    { label: 'The Current Chapter', text: mythos.current },
+    { label: 'Prophecy', text: mythos.prophecy },
+  ]
 
   return (
-    <div className="relative">
-      <span className="typewriter-reveal whitespace-pre-wrap">{displayed}</span>
-      <span className="typewriter-full" style={{ display: "none" }}>
-        {text}
-      </span>
-    </div>
-  );
-}
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.22,
-      delayChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-export default function MythosDisplay({ result, onRestart }: { result: MythosResult; onRestart: () => void }) {
-  const [copied, setCopied] = useState(false);
-  const [stage, setStage] = useState(0);
-
-  const archetypeLabel = result.archetype.toLowerCase().startsWith("the")
-    ? result.archetype.toUpperCase()
-    : `THE ${result.archetype.toUpperCase()}`;
-
-  return (
-    <div className="mythos-printable min-h-screen bg-black px-6 py-16">
-      <style>{`
-        @media print {
-          .no-print { display: none !important; }
-          .typewriter-reveal { display: none !important; }
-          .typewriter-full { display: block !important; }
-          .mythos-printable { background: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-        }
-      `}</style>
-
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-        className="max-w-3xl mx-auto flex flex-col items-center"
-      >
-        <motion.h1
-          variants={itemVariants}
-          className="text-5xl md:text-7xl font-light tracking-tighter text-white text-center"
-        >
-          {result.name}
-        </motion.h1>
-
-        <motion.p
-          variants={itemVariants}
-          className="mt-4 text-sm tracking-[0.4em] uppercase text-[#007AFF] text-center"
-        >
-          {archetypeLabel}
-        </motion.p>
-
-        <motion.div variants={itemVariants} className="mt-10 mb-16 flex justify-center">
-          <Sigil seed={result.seed} size={280} />
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="w-full bg-white/5 border border-white/10 backdrop-blur-xl p-8 mb-6 rounded-none">
-          <p className="text-xs tracking-[0.3em] uppercase text-[#FF4D00] mb-4">Origin</p>
-          <div className="text-lg leading-relaxed text-white/90 font-light">
-            <Typewriter text={result.origin} active={stage >= 0} onDone={() => setStage((s) => Math.max(s, 1))} />
-          </div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="w-full bg-white/5 border border-white/10 backdrop-blur-xl p-8 mb-6 rounded-none">
-          <p className="text-xs tracking-[0.3em] uppercase text-[#FF4D00] mb-4">Current Chapter</p>
-          <div className="text-lg leading-relaxed text-white/90 font-light">
-            <Typewriter text={result.current} active={stage >= 1} onDone={() => setStage((s) => Math.max(s, 2))} />
-          </div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="w-full bg-white/5 border border-white/10 backdrop-blur-xl p-8 mb-6 rounded-none">
-          <p className="text-xs tracking-[0.3em] uppercase text-[#FF4D00] mb-4">Prophecy</p>
-          <div className="text-lg leading-relaxed text-white/90 font-light">
-            <Typewriter text={result.prophecy} active={stage >= 2} onDone={() => setStage((s) => Math.max(s, 3))} />
-          </div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="w-full bg-white/5 border border-white/10 backdrop-blur-xl p-8 mb-6 rounded-none">
-          <p className="text-xs tracking-[0.3em] uppercase text-[#007AFF] mb-4">Doom Prophecy</p>
-          <div className="text-lg leading-relaxed text-white/90 font-light">
-            <Typewriter text={result.doom} active={stage >= 3} />
-          </div>
-        </motion.div>
+    <div className="min-h-screen bg-black pb-32">
+      <div id="mythos-print-area" className="max-w-3xl mx-auto px-6 pt-20 sm:pt-28">
+        <header className="text-center mb-16">
+          <motion.h1
+            className="text-5xl sm:text-6xl md:text-7xl font-sans font-bold text-white tracking-[-0.05em] uppercase mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {mythos.name}
+          </motion.h1>
+          <motion.p
+            className="font-mono text-sm tracking-[0.3em] text-orange uppercase"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Archetype: {mythos.archetype}
+          </motion.p>
+        </header>
 
         <motion.div
-          variants={itemVariants}
-          className="no-print w-full flex flex-wrap gap-4 justify-center mt-8"
+          className="flex justify-center mb-20"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <button
-            onClick={() => window.print()}
-            className="border border-white/20 text-white/80 px-6 py-3 text-xs tracking-[0.25em] uppercase hover:border-[#FF4D00] hover:text-[#FF4D00] rounded-none transition bg-transparent"
-          >
-            Download PDF
-          </button>
-
-          <button
-            onClick={() => {
-              const data = encodeAnswers(result.answers);
-              const url = `${window.location.origin}/share?d=${data}`;
-              navigator.clipboard.writeText(url).then(() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-              });
-            }}
-            className="border border-white/20 text-white/80 px-6 py-3 text-xs tracking-[0.25em] uppercase hover:border-[#FF4D00] hover:text-[#FF4D00] rounded-none transition bg-transparent"
-          >
-            {copied ? "Copied" : "Share"}
-          </button>
-
-          <button
-            onClick={onRestart}
-            className="border border-white/20 text-white/80 px-6 py-3 text-xs tracking-[0.25em] uppercase hover:border-[#FF4D00] hover:text-[#FF4D00] rounded-none transition bg-transparent"
-          >
-            Begin Again
-          </button>
+          <Sigil sigil={mythos.sigil} />
         </motion.div>
-      </motion.div>
+
+        <section className="space-y-16">
+          {chapters.map((chapter, index) => (
+            <article key={chapter.label}>
+              <div className="flex items-center gap-4 mb-4">
+                <h2 className="font-mono text-xs tracking-[0.3em] text-orange uppercase">
+                  {chapter.label}
+                </h2>
+                <div className="flex-1 h-px bg-orange/40" />
+              </div>
+              <div className="font-serif text-lg sm:text-xl text-white leading-relaxed max-w-2xl mx-auto">
+                {index <= completedChapters ? (
+                  <Typewriter
+                    text={chapter.text}
+                    speed={15}
+                    onComplete={index === completedChapters ? handleChapterComplete : undefined}
+                  />
+                ) : (
+                  <span className="opacity-0"> </span>
+                )}
+              </div>
+            </article>
+          ))}
+        </section>
+
+        <motion.div
+          className="mt-20 flex justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: completedChapters >= 3 ? 1 : 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <GlassPanel className="max-w-2xl w-full text-center">
+            <p className="font-serif text-lg text-white/80 italic leading-relaxed">
+              {mythos.archetypeDescription}
+            </p>
+          </GlassPanel>
+        </motion.div>
+      </div>
+
+      <div className="fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-xl border-t border-white/[0.08] z-50 print:hidden">
+        <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between sm:justify-end gap-4">
+          <button
+            onClick={handlePrint}
+            className="font-mono text-xs tracking-[0.15em] text-white/60 uppercase px-4 py-3 border border-white/20 hover:border-orange hover:text-orange transition-colors"
+          >
+            ↓ Download PDF
+          </button>
+          <button
+            onClick={handleShare}
+            className="font-mono text-xs tracking-[0.15em] text-white/60 uppercase px-4 py-3 border border-white/20 hover:border-orange hover:text-orange transition-colors"
+          >
+            {shareStatus === 'copied' ? '↗ Copied' : '↗ Share'}
+          </button>
+          <button
+            onClick={onReset}
+            className="font-mono text-xs tracking-[0.15em] text-white/60 uppercase px-4 py-3 border border-white/20 hover:border-orange hover:text-orange transition-colors"
+          >
+            ↺ Begin Again
+          </button>
+        </div>
+      </div>
     </div>
-  );
+  )
 }

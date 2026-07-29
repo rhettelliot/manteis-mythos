@@ -2,61 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html,
-  body {
-    background: #000;
-    color: #fff;
-  }
+* {
+  border-radius: 0 !important;
+}
 
-  body {
-    font-family: var(--font-inter), system-ui, sans-serif;
-    overflow-x: hidden;
-  }
+html,
+body {
+  background-color: #000000;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  ::selection {
-    background: #ff4d00;
-    color: #000;
-  }
+::selection {
+  background-color: #FF4D00;
+  color: #000000;
+}
 
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
 
-  ::-webkit-scrollbar-thumb {
-    background: #222;
-  }
+::-webkit-scrollbar-track {
+  background: #000000;
+}
 
-  ::-webkit-scrollbar-track {
-    background: #000;
-  }
+::-webkit-scrollbar-thumb {
+  background: #FF4D00;
+}
 
-  input,
-  textarea,
-  select,
-  button {
-    font-family: inherit;
-  }
-
-  input,
-  textarea,
-  select {
-    background: #000;
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.15);
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-  }
-
-  input:focus,
-  textarea:focus,
-  select:focus {
-    outline: none;
-    border-color: #ff4d00;
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6a2b;
 }
 
 @layer utilities {
@@ -70,21 +47,26 @@
     visibility: hidden;
   }
 
-  .mythos-printable,
-  .mythos-printable * {
+  #mythos-print-area,
+  #mythos-print-area * {
     visibility: visible;
   }
 
-  .mythos-printable {
+  #mythos-print-area {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    background: #fff;
-    color: #000;
+    background: #ffffff !important;
+    color: #000000 !important;
   }
 
-  .no-print {
-    display: none !important;
+  #mythos-print-area h1,
+  #mythos-print-area h2,
+  #mythos-print-area h3,
+  #mythos-print-area p,
+  #mythos-print-area span,
+  #mythos-print-area div {
+    color: #000000 !important;
   }
 }

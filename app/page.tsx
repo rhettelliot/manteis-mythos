@@ -1,37 +1,91 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import GateScreen from '@/components/GateScreen'
+import QuestionFlow from '@/components/QuestionFlow'
+import MythosDisplay from '@/components/MythosDisplay'
+import { generateMythos } from '@/lib/mythos'
+import { saveMythos, loadMythos, clearMythos } from '@/lib/storage'
+import { decodeShareURL } from '@/lib/share'
+import type { MythosData } from '@/lib/types'
 
-import Gate from '@/components/Gate';
-import QuestionFlow from '@/components/QuestionFlow';
-import MythosDisplay from '@/components/MythosDisplay';
-import PantheonBuilder from '@/components/PantheonBuilder';
-
-import { generateMythos } from '@/lib/mythosEngine';
-import type { MythosResult } from '@/lib/types';
+type AppState = 'gate' | 'questions' | 'generating' | 'mythos'
 
 export default function Home() {
-  const [phase, setPhase] = useState<'gate' | 'mode' | 'questions' | 'pantheon' | 'result'>('gate');
-  const [mythos, setMythos] = useState<MythosResult | null>(null);
+  const [state, setState] = useState<AppState>('gate')
+  const [answers, setAnswers] = useState<string[]>([])
+  const [mythos, setMythos] = useState<MythosData | null>(null)
+  const [isHydrated, setIsHydrated] = useState(false)
 
-  useState(() => {
-    try {
-      const saved = localStorage.getItem('mythos-saved');
-      if (saved) {
-        const parsed = JSON.parse(saved) as MythosResult;
-        setMythos(parsed);
-        setPhase('result');
+  useEffect(() => {
+    setIsHydrated(true)
+    if (typeof window === 'undefined') return
+
+    const hash = window.location.hash
+    if (hash) {
+      const shared = decodeShareURL(hash)
+      if (shared && shared.length > 0) {
+        const data = generateMythos(shared)
+        setAnswers(shared)
+        setMythos(data)
+        saveMythos({ mythos: data, answers: shared })
+        setState('mythos')
+        window.location.hash = ''
+        return
       }
-    } catch {
-      // Ignore malformed saved data.
     }
-  });
+
+    const saved = loadMythos()
+    if (saved) {
+      setAnswers(saved.answers)
+      setMythos(saved.mythos)
+      setState('mythos')
+    }
+  }, [])
+
+  useEffect(() => {
+    if (state !== 'generating') return
+    if (answers.length === 0) return
+
+    const timer = setTimeout(() => {
+      const data = generateMythos(answers)
+      setMythos(data)
+      saveMythos({ mythos: data, answers })
+      setState('mythos')
+    }, 2000)
+
+    return () => clearTimeout(timer)
+  }, [state, answers])
+
+  const handleEnter = useCallback(() => setState('questions'), [])
+
+  const handleQuestionsComplete = useCallback((completedAnswers: string[]) => {
+    setAnswers(completedAnswers)
+    setState('generating')
+  }, [])
+
+  const handleReset = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      clearMythos()
+    }
+    setAnswers([])
+    setMythos(null)
+    setState('gate')
+  }, [])
+
+  if (!isHydrated) {
+    return (
+      <main className="min-h-screen bg-black flex items-center justify-center">
+        <div className="w-3 h-3 bg-orange animate-pulse" />
+      </main>
+    )
+  }
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-black overflow-x-hidden">
       <AnimatePresence mode="wait">
-        {phase === 'gate' && (
+        {state === 'gate' && (
           <motion.div
             key="gate"
             initial={{ opacity: 0 }}
@@ -39,107 +93,84 @@ export default function Home() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Gate onEnter={() => setPhase('mode')} />
+            <GateScreen onEnter={handleEnter} />
           </motion.div>
         )}
-
-        {phase === 'mode' && (
-          <motion.div
-            key="mode"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black px-6"
-          >
-            <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-              <button
-                onClick={() => setPhase('questions')}
-                className="group relative border border-white/10 p-8 md:p-12 text-left hover:border-[#FF4D00] transition rounded-none bg-transparent"
-              >
-                <p className="text-xs tracking-[0.3em] uppercase text-[#FF4D00] mb-4">Oracle Mode</p>
-                <h2 className="text-3xl md:text-4xl font-light tracking-tighter text-white mb-4">
-                  Answer the Seven
-                </h2>
-                <p className="text-sm leading-relaxed text-white/50">
-                  Respond to seven questions and receive a generated personal mythology with
-                  archetype, origin, current chapter, and prophecy.
-                </p>
-                <div className="mt-8 text-xs tracking-[0.25em] uppercase text-white/30 group-hover:text-[#FF4D00] transition">
-                  Enter →
-                </div>
-              </button>
-
-              <button
-                onClick={() => setPhase('pantheon')}
-                className="group relative border border-white/10 p-8 md:p-12 text-left hover:border-[#007AFF] transition rounded-none bg-transparent"
-              >
-                <p className="text-xs tracking-[0.3em] uppercase text-[#007AFF] mb-4">Pantheon Builder</p>
-                <h2 className="text-3xl md:text-4xl font-light tracking-tighter text-white mb-4">
-                  Assemble a Court
-                </h2>
-                <p className="text-sm leading-relaxed text-white/50">
-                  Select up to six deities across world traditions and weave a court of forces that
-                  generates a combined mythos reading.
-                </p>
-                <div className="mt-8 text-xs tracking-[0.25em] uppercase text-white/30 group-hover:text-[#007AFF] transition">
-                  Enter →
-                </div>
-              </button>
-            </div>
-          </motion.div>
-        )}
-
-        {phase === 'questions' && (
+        {state === 'questions' && (
           <motion.div
             key="questions"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
           >
             <QuestionFlow
-              onComplete={(answers) => {
-                const result = generateMythos(answers);
-                setMythos(result);
-                localStorage.setItem('mythos-saved', JSON.stringify(result));
-                setPhase('result');
-              }}
+              onComplete={handleQuestionsComplete}
+              onBack={() => setState('gate')}
             />
           </motion.div>
         )}
-
-        {phase === 'pantheon' && (
+        {state === 'generating' && (
           <motion.div
-            key="pantheon"
+            key="generating"
+            className="min-h-screen flex flex-col items-center justify-center bg-black"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
           >
-            <PantheonBuilder />
+            <div className="relative w-48 h-48 mb-8">
+              <motion.div
+                className="absolute inset-0 border border-orange/30"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              />
+              <motion.div
+                className="absolute inset-4 border border-blue/30"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+              />
+              <motion.div
+                className="absolute inset-8 border border-orange/20"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+              />
+              <motion.div
+                className="absolute inset-0 bg-orange/5"
+                animate={{ opacity: [0.2, 0.5, 0.2] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </div>
+            <h2 className="font-mono text-sm tracking-[0.3em] text-orange uppercase">
+              Forging
+              <motion.span
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                ...
+              </motion.span>
+            </h2>
+            <p className="mt-4 font-mono text-xs text-white/30 tracking-widest">
+              ALIGNING ARCHETYPES
+            </p>
           </motion.div>
         )}
-
-        {phase === 'result' && mythos && (
+        {state === 'mythos' && mythos && (
           <motion.div
-            key="result"
+            key="mythos"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
             <MythosDisplay
-              result={mythos}
-              onRestart={() => {
-                localStorage.removeItem('mythos-saved');
-                setMythos(null);
-                setPhase('gate');
-              }}
+              mythos={mythos}
+              answers={answers}
+              onReset={handleReset}
             />
           </motion.div>
         )}
       </AnimatePresence>
     </main>
-  );
+  )
 }

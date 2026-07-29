@@ -1,53 +1,67 @@
 'use client';
 
-import { Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-import { decodeAnswers, generateMythos } from '@/lib/mythosEngine';
+import { decodeShareURL } from '@/lib/share';
+import { generateMythos } from '@/lib/mythos';
 import MythosDisplay from '@/components/MythosDisplay';
+import type { MythosData } from '@/lib/types';
 
 function ShareContent() {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const data = searchParams.get('d');
+  const [mythos, setMythos] = useState<MythosData | null>(null);
+  const [answers, setAnswers] = useState<string[] | null>(null);
+  const [isInvalid, setIsInvalid] = useState(false);
 
-  let result = null;
-  let isInvalid = false;
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
 
-  if (data) {
-    try {
-      const answers = decodeAnswers(data);
-      result = generateMythos(answers);
-    } catch {
-      isInvalid = true;
+    const hash = window.location.hash;
+    const shared = decodeShareURL(hash);
+
+    if (shared && shared.length > 0) {
+      const data = generateMythos(shared);
+      setAnswers(shared);
+      setMythos(data);
+    } else {
+      setIsInvalid(true);
     }
-  } else {
-    isInvalid = true;
+  }, []);
+
+  if (mythos && answers) {
+    return (
+      <MythosDisplay
+        mythos={mythos}
+        answers={answers}
+        onReset={() => router.push('/')}
+      />
+    );
   }
 
-  if (result && !isInvalid) {
-    return <MythosDisplay result={result} onRestart={() => router.push('/')} />;
+  if (isInvalid) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-black text-white px-6">
+        <div className="max-w-md border border-white/10 bg-white/5 backdrop-blur-xl p-10 text-center">
+          <h1 className="text-2xl font-medium tracking-tight mb-4">
+            No mythos found.
+          </h1>
+          <p className="text-white/60 text-sm mb-8">
+            The shared link appears to be missing or invalid.
+          </p>
+          <Link
+            href="/"
+            className="inline-block border-2 border-orange px-8 py-3 text-sm font-medium uppercase tracking-[0.2em] text-orange hover:bg-orange hover:text-black transition"
+          >
+            Return Home
+          </Link>
+        </div>
+      </main>
+    );
   }
 
-  return (
-    <main className="min-h-screen flex items-center justify-center bg-black text-white px-6">
-      <div className="max-w-md border border-white/10 bg-white/5 backdrop-blur-xl p-10 text-center">
-        <h1 className="text-2xl font-medium tracking-tight mb-4">
-          No mythos found.
-        </h1>
-        <p className="text-white/60 text-sm mb-8">
-          The shared link appears to be missing or invalid.
-        </p>
-        <Link
-          href="/"
-          className="inline-block border-2 border-orange px-8 py-3 text-sm font-medium uppercase tracking-[0.2em] text-orange hover:bg-orange hover:text-black transition"
-        >
-          Return Home
-        </Link>
-      </div>
-    </main>
-  );
+  return null;
 }
 
 export default function SharePage() {
