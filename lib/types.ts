@@ -8,6 +8,8 @@ export interface SigilData {
   seed: number;
 }
 
+export type MythosVariant = "standard" | "cosmic" | "shamanic";
+
 export interface MythosData {
   name: string;
   archetype: string;
@@ -15,6 +17,7 @@ export interface MythosData {
   origin: string;
   current: string;
   prophecy: string;
+  variant: MythosVariant;
   sigil: SigilData;
 }
 

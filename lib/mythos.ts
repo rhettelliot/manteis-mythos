@@ -1,4 +1,4 @@
-import type { MythosData } from "./types";
+import type { MythosData, MythosVariant } from "./types";
 import { determineArchetype } from "./archetypes";
 import { generateSigilData, hashString, mulberry32 } from "./sigil";
 
@@ -227,6 +227,207 @@ const MYTHIC_ELEMENTS = [
   "supernova",
   "dark matter",
   "event horizon",
+];
+
+const SHAMANIC_ADJECTIVES = [
+  "bone-white",
+  "drum-haunted",
+  "smoke-cured",
+  "earth-anchored",
+  "root-deep",
+  "spirit-worn",
+  "sweat-drenched",
+  "fire-touched",
+  "vision-thin",
+  "totemic",
+  "sacred",
+  "primal",
+  "wild",
+  "ancestral",
+  "feral",
+  "pungent",
+  "bitter",
+  "healing",
+  "hollow",
+  "luminous",
+  "ancient",
+  "patient",
+  "raw",
+  "initiatic",
+  "unseen",
+  "lower-world",
+  "upper-world",
+  "dark-winged",
+];
+
+const SHAMANIC_NOUNS = [
+  "drum",
+  "rattle",
+  "smoke",
+  "bone",
+  "root",
+  "stone",
+  "feather",
+  "mask",
+  "pelt",
+  "flame",
+  "sweat",
+  "river",
+  "cave",
+  "tree",
+  "skull",
+  "pouch",
+  "altar",
+  "tongue",
+  "journey",
+  "tunnel",
+  "spiral",
+  "eye",
+  "paw",
+  "wing",
+  "hoof",
+  "fang",
+  "track",
+  "bloodline",
+  "voice",
+  "ghost",
+  "shadow",
+  "body",
+  "wound",
+  "soul",
+  "plant",
+  "brew",
+  "ash",
+  "ember",
+  "song",
+  "dance",
+  "silence",
+];
+
+const SHAMANIC_VERBS = [
+  "call",
+  "summon",
+  "descend",
+  "climb",
+  "weave",
+  "drum",
+  "rattle",
+  "dance",
+  "shape-shift",
+  "track",
+  "retrieve",
+  "heal",
+  "mend",
+  "swallow",
+  "burn",
+  "sing",
+  "listen",
+  "wait",
+  "fast",
+  "hold",
+  "guard",
+  "return",
+  "remember",
+  "bury",
+  "uncover",
+  "transform",
+  "embody",
+  "invoke",
+  "exhale",
+  "travel",
+];
+
+const SHAMANIC_SPIRIT_ANIMALS = [
+  "wolf",
+  "owl",
+  "snake",
+  "eagle",
+  "bear",
+  "deer",
+  "jaguar",
+  "crow",
+  "spider",
+  "salmon",
+  "butterfly",
+  "moth",
+  "boar",
+  "fox",
+  "hawk",
+  "turtle",
+  "raven",
+  "mountain lion",
+  "dragonfly",
+  "frog",
+  "bat",
+  "horse",
+  "elk",
+  "rabbit",
+  "lynx",
+];
+
+const SHAMANIC_PLANT_MEDICINES = [
+  "ayahuasca",
+  "peyote",
+  "san pedro",
+  "mushroom",
+  "tobacco",
+  "sage",
+  "cedar",
+  "copal",
+  "cacao",
+  "cannabis",
+  "datura",
+  "iboga",
+  "kambo",
+  "ruda",
+  "mugwort",
+  "wormwood",
+  "california poppy",
+  "blue lotus",
+  "ololiuqui",
+  "willow",
+  "yarrow",
+];
+
+const SHAMANIC_REALM_DETAILS = [
+  "a root system older than language",
+  "a river that runs both directions",
+  "a cave where extinct fires still breathe",
+  "a forest whose trees are faces you almost recognize",
+  "a black pool reflecting nothing but intent",
+  "a plain of red stones and motionless birds",
+  "a ladder of smoke with no visible top",
+  "a tunnel lined with drums that beat themselves",
+  "a valley filled with the footprints of animals you have not yet met",
+  "a canopy of stars low enough to touch",
+  "a swamp where lost names grow as reeds",
+  "a mountain whose peak is the underside of another world",
+  "a grove where every tree marks a death you survived",
+  "a well so deep your voice returns wearing wings",
+  "a fire that consumes only what is no longer true",
+];
+
+const SHAMANIC_ABSTRACTS = [
+  "retrieval",
+  "soul-loss",
+  "initiation",
+  "purification",
+  "ancestry",
+  "power",
+  "sacrifice",
+  "dreaming",
+  "tracking",
+  "shadow",
+  "dis-memberment",
+  "re-memberment",
+  "prayer",
+  "boundary",
+  "calling",
+  "ordination",
+  "ecstasy",
+  "transmission",
+  "pact",
+  "return",
 ];
 
 const MYTHIC_ADJECTIVES_SET = new Set(MYTHIC_ADJECTIVES);
@@ -648,6 +849,78 @@ const COSMIC_CLOSINGS = [
   "Your mythos is cosmic now. Carry it like a small, bright singularity — dense, dangerous, and absolutely necessary.",
 ];
 
+const SHAMANIC_JOURNEY_OPENINGS = [
+  "The drum begins before the drum. You are already descending.",
+  "Something has borrowed your attention and placed it in a world that answers in hoofbeats and smoke.",
+  "You are being called to the place where the roots drink from memory.",
+  "The journey does not ask where you want to go. It asks what you are willing to leave at the entrance.",
+];
+
+const DESCENT_PARAGRAPHS = [
+  "You descend through {phrase}. This is not the middle world. The air here has weight and intention. Every direction is a question posed by a body older than yours.",
+  "The tunnel opens into {phrase}. You do not walk; you are allowed to move. Permission is the first law of the lower world.",
+  "You arrive at {phrase}. The ground recognizes your feet though you have never stood here before. The lower world remembers everyone who has ever knelt.",
+];
+
+const SPIRIT_ANIMAL_PARAGRAPHS = [
+  "Waiting for you is the {animal}, {animalDetail}. It has already watched you lose and search and lose again. It does not judge. It only offers the speed of its body.",
+  "The {animal} appears {animalDetail}. It is the first ally to admit you do not have to carry what you came here to find. Some things must be tracked, not lifted.",
+  "Your ally is the {animal}, {animalDetail}. It knows the way to the wound because it has its own wound. That is how kinship works in the unseen.",
+];
+
+const SOUL_RETRIEVAL_PARAGRAPHS = [
+  "What was taken from you lives here as {phrase}. It is not where you left it because it was never truly lost — only hidden until the journey was ready.",
+  "The part of you that fled appears as {phrase}. Do not rush toward it. Let it remember your scent. Retrieval is courtship, not capture.",
+  "You find {phrase} waiting in the place where time first split from pain. This is the fragment. The agreement is that you must carry it back without turning it into a weapon.",
+];
+
+const ANCESTRAL_WISDOM_PARAGRAPHS = [
+  "An ancestor appears as {phrase}. They do not speak in words. They speak in the posture of a question you have been avoiding since before you had language.",
+  "The old ones gather at the edge of the fire. What they pass to you is not comfort. It is {phrase}, and it will make you useful.",
+  "From behind you comes a voice like weathered wood: {phrase}. It is not a command. It is the memory of a promise someone made on your behalf before you were born.",
+];
+
+const RETURN_PARAGRAPHS = [
+  "The return is not escape. You bring {phrase} back through the tunnel, through the drum, through the skin. The work is what you do with it now, awake.",
+  "You climb back carrying {phrase}. It is heavier than memory and lighter than hope. Integration begins when you stop performing the journey and start living its tax.",
+  "The drum calls you home. You return with {phrase} pressed against your ribs. The ordinary world looks the same, but it has lost the power to convince you that is all there is.",
+];
+
+const SHAMANIC_CLOSINGS = [
+  "The spirit world does not owe you answers. It has already given you the correct questions. Walk accordingly.",
+  "Your allies are not decorative. Feed them with action, silence, and the courage to descend again.",
+  "The journey is over. The medicine is just beginning.",
+  "You are the bridge now. What came through must be carried with both hands.",
+];
+
+function generateShamanicJourney(
+  answers: string[],
+  rng: () => number,
+  seed: number
+): string {
+  const phrase2 = pickPhrase(answers[1] ?? "", seed + 2, 55);
+  const phrase4 = pickPhrase(answers[3] ?? "", seed + 4, 55);
+  const phrase5 = pickPhrase(answers[4] ?? "", seed + 5, 55);
+  const phrase7 = pickPhrase(answers[6] ?? "", seed + 7, 55);
+
+  const animal = randomEl(SHAMANIC_SPIRIT_ANIMALS, rng);
+  const animalDetail = randomEl(SHAMANIC_REALM_DETAILS, rng);
+
+  const paragraphs = [
+    randomEl(SHAMANIC_JOURNEY_OPENINGS, rng),
+    randomEl(DESCENT_PARAGRAPHS, rng).replace("{phrase}", phrase2),
+    randomEl(SPIRIT_ANIMAL_PARAGRAPHS, rng)
+      .replace("{animal}", animal)
+      .replace("{animalDetail}", animalDetail),
+    randomEl(SOUL_RETRIEVAL_PARAGRAPHS, rng).replace("{phrase}", phrase4),
+    randomEl(ANCESTRAL_WISDOM_PARAGRAPHS, rng).replace("{phrase}", phrase5),
+    randomEl(RETURN_PARAGRAPHS, rng).replace("{phrase}", phrase7),
+    randomEl(SHAMANIC_CLOSINGS, rng),
+  ];
+
+  return paragraphs.join("\n\n");
+}
+
 function generateCosmicProphecy(
   answers: string[],
   rng: () => number,
@@ -668,14 +941,18 @@ function generateCosmicProphecy(
   return paragraphs.join("\n\n");
 }
 
-function generateProphecy(answers: string[], rng: () => number, seed: number): string {
+function generateProphecy(answers: string[], rng: () => number, seed: number): { variant: MythosVariant; text: string } {
   const phrase4 = pickPhrase(answers[3] ?? "", seed + 4);
   const phrase5 = pickPhrase(answers[4] ?? "", seed + 5);
   const phrase7 = pickPhrase(answers[6] ?? "", seed + 7);
 
-  // 25% chance to generate a cosmic prophecy variant.
-  if (rng() < 0.25) {
-    return generateCosmicProphecy(answers, rng, seed);
+  // 25% chance for cosmic; 25% chance for shamanic; otherwise standard prophecy.
+  const roll = rng();
+  if (roll < 0.25) {
+    return { variant: "cosmic", text: generateCosmicProphecy(answers, rng, seed) };
+  }
+  if (roll < 0.5) {
+    return { variant: "shamanic", text: generateShamanicJourney(answers, rng, seed) };
   }
 
   const paragraphs = [
@@ -686,7 +963,7 @@ function generateProphecy(answers: string[], rng: () => number, seed: number): s
     randomEl(PROPHECY_CLOSINGS, rng),
   ];
 
-  return paragraphs.join("\n\n");
+  return { variant: "standard", text: paragraphs.join("\n\n") };
 }
 
 export function generateMythos(answers: string[]): MythosData {
@@ -695,6 +972,7 @@ export function generateMythos(answers: string[]): MythosData {
 
   const archetype = determineArchetype(answers);
   const sigil = generateSigilData(answers);
+  const prophecyResult = generateProphecy(answers, rng, seed);
 
   return {
     name: generateName(answers, rng, seed),
@@ -702,7 +980,8 @@ export function generateMythos(answers: string[]): MythosData {
     archetypeDescription: archetype.description,
     origin: generateOrigin(answers, rng, seed),
     current: generateCurrent(answers, rng, seed, archetype.name),
-    prophecy: generateProphecy(answers, rng, seed),
+    prophecy: prophecyResult.text,
+    variant: prophecyResult.variant,
     sigil,
   };
 }
