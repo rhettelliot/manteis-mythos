@@ -430,6 +430,166 @@ const SHAMANIC_ABSTRACTS = [
   "return",
 ];
 
+const ORACULAR_ADJECTIVES = [
+  "smoke-wreathed",
+  "tripod-bound",
+  "laurel-crowned",
+  "python-guarded",
+  "cavern-voiced",
+  "entrail-stained",
+  "sacred",
+  "riddling",
+  "obscure",
+  "ambiguous",
+  "temple-born",
+  "prophetic",
+  "sibylline",
+  "delphic",
+  "avian",
+  "sacrificial",
+  "chthonic",
+  "honey-voiced",
+  "dove-dark",
+  "lotus-eating",
+  "saffron-robed",
+  "bronze-throated",
+  "wine-dark",
+  "ash-still",
+  "pythian",
+  "flight-blessed",
+  "spring-uttered",
+  "omen-laden",
+  "fume-drunk",
+  "god-touched",
+];
+
+const ORACULAR_NOUNS = [
+  "altar",
+  "tripod",
+  "laurel",
+  "spring",
+  "dove",
+  "raven",
+  "entrails",
+  "smoke",
+  "fume",
+  "oracle",
+  "sibyl",
+  "priestess",
+  "omen",
+  "augury",
+  "libation",
+  "temple",
+  "cavern",
+  "cleft",
+  "censer",
+  "knife",
+  "bowl",
+  "bone",
+  "branch",
+  "flight",
+  "bird",
+  "vulture",
+  "serpent",
+  "python",
+  "offering",
+  "votive",
+];
+
+const ORACULAR_VERBS = [
+  "divine",
+  "speak",
+  "warn",
+  "riddle",
+  "smoke",
+  "sacrifice",
+  "consult",
+  "interpret",
+  "read",
+  "see",
+  "know",
+  "reveal",
+  "conceal",
+  "mark",
+  "call",
+  "summon",
+  "anoint",
+  "burn",
+  "scatter",
+  "drink",
+  "slip",
+  "turn",
+  "return",
+  "linger",
+  "choose",
+  "ask",
+  "answer",
+  "prophesy",
+  "foretell",
+  "bewilder",
+];
+
+const ORACULAR_ABSTRACTS = [
+  "prophecy",
+  "omen",
+  "augury",
+  "divination",
+  "ecstasy",
+  "inspiration",
+  "riddle",
+  "enigma",
+  "doom",
+  "blessing",
+  "curse",
+  "truth",
+  "shadow",
+  "utterance",
+  "response",
+  "sacrifice",
+  "purification",
+  "revelation",
+  "concealment",
+  "retribution",
+  "fate",
+  "moira",
+  "nemesis",
+  "kairos",
+  "aporia",
+  "hybris",
+  "metis",
+  "thaumaturgy",
+  "miasma",
+  "katharsis",
+];
+
+const ORACULAR_SIGNS = [
+  "the flight of birds to the east",
+  "the silence after the libation",
+  "a serpent coiled around the tripod foot",
+  "smoke that rises and falls in three breaths",
+  "the spring running black for a day",
+  "a laurel leaf that burns without ash",
+  "the cry of a bird no one can name",
+  "entrails that spell a name backwards",
+  "the cleft in the rock exhaling cold",
+  "a knife that refuses to reflect the supplicant",
+  "doves settling where none have nested",
+  "the oracle tongue moving before the question",
+];
+
+const ORACULAR_RIDDLES = [
+  "I am born from what is burned and live only where water forgets to fall. What am I?",
+  "I speak in silence, walk without feet, and arrive exactly when I am no longer waited for. What am I?",
+  "The more you name me, the less I weigh; the less you carry me, the heavier I become. What am I?",
+  "I am the doorway that opens only after you have already passed through. What am I?",
+  "I am eaten to be kept; kept to be lost; lost to be found again. What am I?",
+  "I follow the questioner, arrive before the answer, and disappear when both are wise. What am I?",
+  "What is given to the gods returns as what is taken from the self. What stands between?",
+  "I am the shape of the wound the weapon will make before the weapon is forged. What am I?",
+  "The oracle does not lie; the listener does not understand. What therefore crosses the threshold?",
+  "I am the path that grows longer as you walk faster. What am I?",
+];
+
 const MYTHIC_ADJECTIVES_SET = new Set(MYTHIC_ADJECTIVES);
 const MYTHIC_VERBS_SET = new Set(MYTHIC_VERBS);
 
@@ -893,6 +1053,87 @@ const SHAMANIC_CLOSINGS = [
   "You are the bridge now. What came through must be carried with both hands.",
 ];
 
+const ORACULAR_PROPHECY_OPENINGS = [
+  "The temple doors are already open. You have only now decided to knock.",
+  "I do not speak; I am spoken. Listen for what moves through the smoke before it becomes words.",
+  "Before your question, the tripod knew its answer. Before the answer, you knew your question.",
+  "The spring gives nothing freely. It offers water only after it has tasted the shadow of the asker.",
+];
+
+const ORACULAR_INVOCATION_PARAGRAPHS = [
+  "At the threshold, {phrase} is laid upon the altar. It is not destroyed; it is translated into smoke. The gods do not consume the offering — they inhale its intent and exhale a shape you must learn to read.",
+  "You approach the cavern with {phrase} in your arms. The priestess does not ask what it means. She watches how you set it down, whether your hands tremble, whether you look back as you leave it.",
+  "The libation is poured. {phrase} slips into the earth. What returns is not an echo but a new question, spoken in the language of roots and rust.",
+];
+
+const ORACULAR_SIGN_PARAGRAPHS = [
+  "The sign appears: {sign}. It is not a promise. It is a grammar — a way of arranging the next season so that your eye finally recognizes the pattern.",
+  "Do not ignore {sign}. The flight of birds is not decoration; it is punctuation. Something in your story has been misspelled, and the sky is correcting it.",
+  "{sign} marks the hour. The gods do not write in straight lines. They write in convergence: where smoke, bone, and longing meet and agree.",
+];
+
+const ORACULAR_RIDDLE_PARAGRAPHS = [
+  "The sibyl leaves a riddle at your feet: {riddle} Carry it not in your mind but in your marrow. Understanding arrives only after you stop trying to solve it.",
+  "In the silence between questions, you hear: {riddle} It is not meant to be answered quickly. A true riddle is a door that opens when your need to enter has become greater than your fear of what waits inside.",
+  "The python speaks in coils: {riddle} Read it backward. Read it in water. Read it only when you are ready to be changed by the reading.",
+];
+
+const ORACULAR_CLOSINGS = [
+  "The oracle is finished. The prophecy remains. What you do with it is the next offering.",
+  "I have spoken the smoke. Now you must walk through it.",
+  "Every answer is a seed. Bury it or swallow it — but do not leave it in the bowl.",
+  "The temple closes. The riddle follows. May your listening outlast your understanding.",
+];
+
+function generateOracularProphecy(
+  answers: string[],
+  rng: () => number,
+  seed: number
+): string {
+  const phrase4 = pickPhrase(answers[3] ?? "", seed + 4);
+  const phrase5 = pickPhrase(answers[4] ?? "", seed + 5);
+  const phrase7 = pickPhrase(answers[6] ?? "", seed + 7);
+
+  const sign = randomEl(ORACULAR_SIGNS, rng);
+  const riddle = randomEl(ORACULAR_RIDDLES, rng);
+  const verb = randomEl(ORACULAR_VERBS, rng);
+  const noun = randomEl(ORACULAR_NOUNS, rng);
+  const adj = randomEl(ORACULAR_ADJECTIVES, rng);
+  const abstract = randomEl(ORACULAR_ABSTRACTS, rng);
+
+  const paragraphs = [
+    randomEl(ORACULAR_PROPHECY_OPENINGS, rng),
+    randomEl(ORACULAR_INVOCATION_PARAGRAPHS, rng).replace("{phrase}", phrase4),
+    randomEl(ORACULAR_SIGN_PARAGRAPHS, rng).replace("{sign}", sign),
+    randomEl(ORACULAR_RIDDLE_PARAGRAPHS, rng).replace("{riddle}", riddle),
+    `The ${adj} ${noun} ${verb}s your ${phrase5}. This is the oracle's true utterance: not the words, but the ${abstract} that gathers beneath them like water in a hidden spring.`,
+    `When ${phrase7} returns to you, do not name it too soon. The gods ${verb} only those who permit the name to arrive in its own season, reeking of ${randomEl(ORACULAR_NOUNS, rng)} and ${randomEl(ORACULAR_ABSTRACTS, rng)}.`,
+    randomEl(ORACULAR_CLOSINGS, rng),
+  ];
+
+  return paragraphs.join("\n\n");
+}
+
+function generateCosmicProphecy(
+  answers: string[],
+  rng: () => number,
+  seed: number
+): string {
+  const phrase4 = pickPhrase(answers[3] ?? "", seed + 4);
+  const phrase5 = pickPhrase(answers[4] ?? "", seed + 5);
+  const phrase7 = pickPhrase(answers[6] ?? "", seed + 7);
+
+  const paragraphs = [
+    randomEl(COSMIC_PROPHECY_OPENINGS, rng),
+    randomEl(COSMIC_CYCLE_PARAGRAPHS, rng).replace("{phrase}", phrase4),
+    randomEl(VOID_PARAGRAPHS, rng).replace("{phrase}", phrase5),
+    randomEl(HORIZON_PARAGRAPHS, rng).replace("{phrase}", phrase7),
+    randomEl(COSMIC_CLOSINGS, rng),
+  ];
+
+  return paragraphs.join("\n\n");
+}
+
 function generateShamanicJourney(
   answers: string[],
   rng: () => number,
@@ -921,38 +1162,21 @@ function generateShamanicJourney(
   return paragraphs.join("\n\n");
 }
 
-function generateCosmicProphecy(
-  answers: string[],
-  rng: () => number,
-  seed: number
-): string {
-  const phrase4 = pickPhrase(answers[3] ?? "", seed + 4);
-  const phrase5 = pickPhrase(answers[4] ?? "", seed + 5);
-  const phrase7 = pickPhrase(answers[6] ?? "", seed + 7);
-
-  const paragraphs = [
-    randomEl(COSMIC_PROPHECY_OPENINGS, rng),
-    randomEl(COSMIC_CYCLE_PARAGRAPHS, rng).replace("{phrase}", phrase4),
-    randomEl(VOID_PARAGRAPHS, rng).replace("{phrase}", phrase5),
-    randomEl(HORIZON_PARAGRAPHS, rng).replace("{phrase}", phrase7),
-    randomEl(COSMIC_CLOSINGS, rng),
-  ];
-
-  return paragraphs.join("\n\n");
-}
-
 function generateProphecy(answers: string[], rng: () => number, seed: number): { variant: MythosVariant; text: string } {
   const phrase4 = pickPhrase(answers[3] ?? "", seed + 4);
   const phrase5 = pickPhrase(answers[4] ?? "", seed + 5);
   const phrase7 = pickPhrase(answers[6] ?? "", seed + 7);
 
-  // 25% chance for cosmic; 25% chance for shamanic; otherwise standard prophecy.
+  // 20% chance each for cosmic, shamanic, oracular; otherwise standard prophecy.
   const roll = rng();
-  if (roll < 0.25) {
+  if (roll < 0.20) {
     return { variant: "cosmic", text: generateCosmicProphecy(answers, rng, seed) };
   }
-  if (roll < 0.5) {
+  if (roll < 0.40) {
     return { variant: "shamanic", text: generateShamanicJourney(answers, rng, seed) };
+  }
+  if (roll < 0.60) {
+    return { variant: "oracular", text: generateOracularProphecy(answers, rng, seed) };
   }
 
   const paragraphs = [

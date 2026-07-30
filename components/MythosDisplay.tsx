@@ -55,7 +55,7 @@ export default function MythosDisplay({ mythos, answers, onReset }: MythosDispla
   const chapters = [
     { label: 'Origin', text: mythos.origin },
     { label: 'The Current Chapter', text: mythos.current },
-    { label: mythos.variant === 'shamanic' ? 'Shamanic Journey' : 'Prophecy', text: mythos.prophecy },
+    { label: mythos.variant === 'shamanic' ? 'Shamanic Journey' : mythos.variant === 'oracular' ? 'Oracular Reading' : 'Prophecy', text: mythos.prophecy },
   ]
 
   return (
