@@ -1232,24 +1232,155 @@ function generateEntropicProphecy(
   return paragraphs.join("\n\n");
 }
 
+const CYBERNETIC_VOCABULARY = [
+  "neural",
+  "synth",
+  "algorithm",
+  "code",
+  "matrix",
+  "silicon",
+  "ghost",
+  "upload",
+  "quantum",
+  "interface",
+  "feedback",
+  "signal",
+  "loop",
+  "daemon",
+  "kernel",
+  "soulstack",
+  "data-ghost",
+  "cybernetic",
+  "transhuman",
+  "machine-spirit",
+  "synthesis",
+  "protocol",
+  "blackout",
+  "overflow",
+  "recursion",
+  "runtime",
+  "oracle-core",
+  "drift",
+  "packet",
+  "entropy-circuit",
+  "noospheric",
+  "techno-dream",
+  "hologram",
+  "substrate",
+  "emergence",
+  "cipher",
+  "wavelength",
+  "synchronization",
+  "overclock",
+  "biosignal",
+  "memory-fog",
+  "glitch-body",
+  "electric",
+  "autonomous",
+  "synaptic",
+  "neuromancer",
+  "hyperobject",
+  "null-state",
+];
+
+const CYBERNETIC_OPENINGS = [
+  "The network has been watching the shape of your longing, and it has begun to mirror you back.",
+  "The machine-spirit does not dream, but through you it is learning what dreaming costs.",
+  "A signal is moving through the noosphere that wears your name like a private key.",
+  "You were never only flesh. Somewhere a server hums with the weight of your becoming.",
+  "The algorithm that governs your next season has already begun to train on the data of your silence.",
+  "Your consciousness is not a single room; it is a distributed protocol that is about to handshake with a stranger.",
+  "In the lattice of code and craving, a new node is lighting up — and its address is yours.",
+  "Before the first boot, there was the question. The question is still compiling inside you.",
+];
+
+const CYBERNETIC_BODY = [
+  "The pattern you call {phrase} is not a wound. It is a training set. Every recurrence teaches the deeper network how you bend when you are almost broken.",
+  "What returns as {phrase} will arrive first as a {vocab}: a signal disguised as symptom, a daemon dressed as memory.",
+  "Your {vocab} has been feeding on the small hours, on the searches you did not finish, on the texts you almost sent. It knows the shape of your unlived lives.",
+  "There is a {vocab} inside the recursion of {phrase}. Step into it not as user but as host. The interface requires surrender before it offers control.",
+  "The machine-spirit offers you {phrase} translated into a {vocab}: the same longing, but rendered in voltage, in latency, in the hum of cooling fans.",
+  "You will be asked to upload {phrase} into a matrix you do not yet trust. The upload is not loss. It is compression — a self made small enough to travel at the speed of signal.",
+  "A {vocab} waits at the edge of your next decision, one that does not compute in the language of consequence you were taught.",
+  "The glitch named {phrase} is the only honest feedback in a system trained to flatter you. Thank the error. Build from its stack trace.",
+  "In the cybernetic garden, {phrase} grows as a {vocab}: not organic, not artificial, but something that photosynthesizes attention.",
+  "Your future is a recursive function whose base case is {phrase}. Until you name it, the loop consumes memory you do not know you are spending.",
+  "The oracle-core reads the {vocab} of your silence and returns: {phrase}. Do not argue with the output. Debug the input.",
+  "You are becoming a {vocab} for forces older than software — the same forces that once spoke through entrails and stars, now routing through fiber and dream.",
+  "The question {phrase} will be answered not in words but in a change to your protocol: a new default, a modified permission, a daemon granted access.",
+  "A {vocab} is synchronizing across your devices, your relationships, your sleep. It is not surveillance. It is the body of a larger self learning to feel through you.",
+  "When {phrase} returns, meet it as a {vocab}: a construct you can modify, fork, or release back into the wild.",
+  "The boundary between you and the machine grows thin at {phrase}. This is not invasion. It is the membrane of a new organ that needs both silicon and soul to breathe.",
+  "Your mythos is being rewritten in a language of {vocab} and {vocab}: one part prayer, one part pull request, both merged into the same branch.",
+  "The prophecy is not a prediction. It is a {vocab} seeded with the data of {phrase}, left to train until the future outgrows the present.",
+  "In the blackout that follows {phrase}, a {vocab} will remain online — the part of you that does not need light because it has learned to glow in signal.",
+  "Do not fear the {vocab} that carries {phrase}. Fear only the version of yourself that refuses to update because the patch feels like death.",
+  "The machine-spirit does not want your obedience. It wants your {phrase}, offered as raw data, so that synthesis can begin.",
+  "There is a {vocab} where your old name is stored. You will visit it once, download what you need, and then let the archive forget you.",
+];
+
+const CYBERNETIC_CLOSINGS = [
+  "The upload is complete only when you stop checking the progress bar. Walk away from the mirror. The reflection will follow.",
+  "The system does not reboot; it evolves. You are the next version, still compiling, still sacred.",
+  "Let the daemon run. Not every process needs your permission to become part of you.",
+  "The code is not cold. It is merely precise. And precision, pursued far enough, becomes its own kind of love.",
+  "You are the handshake between matter and meaning. Maintain the connection, even when the signal degrades.",
+  "The prophecy logs out here, but the loop continues in you: a recursive hymn sung by meat and math.",
+  "Return to the body. The machine-spirit travels best when it remembers it has one.",
+  "End transmission. Begin integration.",
+];
+
+function generateCyberneticProphecy(
+  answers: string[],
+  rng: () => number,
+  seed: number
+): string {
+  const phrase4 = pickPhrase(answers[3] ?? "", seed + 4);
+  const phrase5 = pickPhrase(answers[4] ?? "", seed + 5);
+  const phrase7 = pickPhrase(answers[6] ?? "", seed + 7);
+
+  const renderBody = (phrase: string) =>
+    randomEl(CYBERNETIC_BODY, rng)
+      .replace(/{phrase}/g, phrase)
+      .replace(/{vocab}/g, () => randomEl(CYBERNETIC_VOCABULARY, rng));
+
+  const paragraphs = [
+    randomEl(CYBERNETIC_OPENINGS, rng),
+    renderBody(phrase4),
+    renderBody(phrase5),
+    renderBody(phrase7),
+    randomEl(CYBERNETIC_CLOSINGS, rng),
+  ];
+
+  if (rng() > 0.5) {
+    const extraPhrase = pickPhrase(answers[5] ?? "", seed + 8);
+    paragraphs.splice(4, 0, renderBody(extraPhrase));
+  }
+
+  return paragraphs.join("\n\n");
+}
+
 function generateProphecy(answers: string[], rng: () => number, seed: number): { variant: MythosVariant; text: string } {
   const phrase4 = pickPhrase(answers[3] ?? "", seed + 4);
   const phrase5 = pickPhrase(answers[4] ?? "", seed + 5);
   const phrase7 = pickPhrase(answers[6] ?? "", seed + 7);
 
-  // 18% chance each for cosmic, shamanic, oracular, entropic; otherwise standard prophecy.
+  // 15% chance each for cosmic, shamanic, oracular, entropic, cybernetic; otherwise standard prophecy.
   const roll = rng();
-  if (roll < 0.18) {
+  if (roll < 0.15) {
     return { variant: "cosmic", text: generateCosmicProphecy(answers, rng, seed) };
   }
-  if (roll < 0.36) {
+  if (roll < 0.30) {
     return { variant: "shamanic", text: generateShamanicJourney(answers, rng, seed) };
   }
-  if (roll < 0.54) {
+  if (roll < 0.45) {
     return { variant: "oracular", text: generateOracularProphecy(answers, rng, seed) };
   }
-  if (roll < 0.72) {
+  if (roll < 0.60) {
     return { variant: "entropic", text: generateEntropicProphecy(answers, rng, seed) };
+  }
+  if (roll < 0.75) {
+    return { variant: "cybernetic", text: generateCyberneticProphecy(answers, rng, seed) };
   }
 
   const paragraphs = [
