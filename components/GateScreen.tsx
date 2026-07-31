@@ -42,7 +42,7 @@ export default function GateScreen({ onEnter }: GateScreenProps) {
           onClick={onEnter}
           className="group relative px-10 py-5 border border-orange bg-transparent text-orange font-mono text-sm tracking-[0.2em] uppercase transition-all duration-300 hover:bg-orange hover:text-black hover:tracking-[0.25em]"
         >
-          Enter the Mythos
+          ENTER THE MYTHOS
         </button>
 
         <p className="mt-8 font-mono text-xs tracking-[0.15em] text-white/30 uppercase">

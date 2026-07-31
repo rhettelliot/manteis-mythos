@@ -844,6 +844,8 @@ const ORIGIN_OPENINGS = [
   "In the beginning, there was only the wanting.",
   "Every myth starts in a single room. Yours was no exception.",
   "Long before you could name it, the current was already moving through you.",
+  "Before the first system booted, there was the glitch that made it possible.",
+  "You were not born; you were the first harmonic in a chord the cosmos was still learning to play.",
 ];
 
 const ORIGIN_MEMORY_PARAGRAPHS = [
@@ -865,6 +867,7 @@ const ORIGIN_BRIDGE_PARAGRAPHS = [
   "Myth is not what happened. Myth is what survived the happening. You are the archive and the flame.",
   "What begins as wound becomes map. What begins as map becomes door. You are still standing in the first threshold, choosing which side to call home.",
   "The origin does not apologize. It simply repeats, softly, under every decision you make.",
+  "The first instruction was not written in any language: {phrase}. You have been compiling it ever since, line by line, life by life.",
 ];
 
 const ORIGIN_CLOSINGS = [
@@ -872,6 +875,7 @@ const ORIGIN_CLOSINGS = [
   "Every origin is a question dressed in smoke. You have spent the rest of your life learning to read it.",
   "The beginning does not end. It only deepens, gathering silence around it like water.",
   "Hold it gently. The first fire is still burning. It has simply learned to burn in code.",
+  "The loop returns to its beginning, but you return changed. That is how recursion becomes myth.",
 ];
 
 function generateOrigin(answers: string[], rng: () => number, seed: number): string {
@@ -903,18 +907,21 @@ const FEAR_PARAGRAPHS = [
   "The thing you fear most about yourself — {phrase} — is not your weakness. It is your edge. The blade is sharpened by the very thing that threatens to cut you.",
   "You hide {phrase} from the world, as if it were a flaw. But look closer: it is the source of your pressure. It is what makes you real.",
   "What you call a darkness — {phrase} — is only power you have not yet learned to aim. The fear is not the thing. The fear is how much it matters.",
+  "The glitch you fear — {phrase} — is not an error in your system. It is the undocumented door through which the real you is trying to load.",
 ];
 
 const LOVE_PARAGRAPHS = [
   "What you love most fiercely — {phrase} — is the gravity that holds your orbit. Without it, you are debris.",
   "{phrase} is not a hobby. It is the axis the world turns around when no one is watching. Lose it, and you lose your north.",
   "Your love — {phrase} — is the only honest compass you own. Everything else is negotiation. Everything else is weather.",
+  "{phrase} is the frequency you have chosen to keep. Even when the signal is weak, it is the one you will not stop tuning.",
 ];
 
 const PATTERN_PARAGRAPHS = [
   "The pattern: {phrase}. It repeats because you have not yet learned its lesson. Or perhaps the lesson IS the pattern.",
   "You keep returning to {phrase}, and each return looks like failure. It is not. It is the spiral staircase. You are being shown the same door from a higher floor.",
   "{phrase} will keep visiting until you stop performing surprise. The pattern is not your enemy. It is your unfinished sentence.",
+  "The recursion that returns as {phrase} is not a trap. It is a function you have not yet finished writing.",
 ];
 
 const CURRENT_CLOSINGS = [
@@ -922,6 +929,7 @@ const CURRENT_CLOSINGS = [
   "The present is not a destination. It is the forge where your next shape is being hammered.",
   "Stand still enough to feel it: the myth is being rewritten in real time, and the pen is in your hand.",
   "You are not behind. You are exactly where the story tightens.",
+  "The frequency is still adjusting. Stay present through the static until the signal becomes clear.",
 ];
 
 function generateCurrent(
@@ -976,6 +984,7 @@ const PROPHECY_CLOSINGS = [
   "You are the oracle and the prophecy. Begin again, but with eyes open.",
   "The end of this reading is not the end of the story. Turn the page. The ink is still wet.",
   "What has been named can now be carried. Go gently. Go fiercely. Go.",
+  "The null point awaits. When you reach it, every direction will be available, and only the true one will remain.",
 ];
 
 const COSMIC_PROPHECY_OPENINGS = [
@@ -983,6 +992,7 @@ const COSMIC_PROPHECY_OPENINGS = [
   "The cosmos does not warn. It simply brightens before it swallows.",
   "Something vast is orbiting the edge of your becoming. Do not look away from the gravity.",
   "You stand at the event horizon of an old self. Beyond it, even light must choose a new path.",
+  "A frequency is emerging from the background noise, tuning itself to the shape of your next becoming.",
 ];
 
 const COSMIC_CYCLE_PARAGRAPHS = [
@@ -1007,6 +1017,7 @@ const COSMIC_CLOSINGS = [
   "Burn, collapse, expand, repeat. The stellar cycle is your inheritance. Make it luminous.",
   "What you call an ending is only the surface of a deeper ignition. The universe rewrites itself in fire. So do you.",
   "Your mythos is cosmic now. Carry it like a small, bright singularity — dense, dangerous, and absolutely necessary.",
+  "The recursion widens. Each ending is a function calling the next version of you. Return wisely.",
 ];
 
 const SHAMANIC_JOURNEY_OPENINGS = [
@@ -1058,6 +1069,7 @@ const ORACULAR_PROPHECY_OPENINGS = [
   "I do not speak; I am spoken. Listen for what moves through the smoke before it becomes words.",
   "Before your question, the tripod knew its answer. Before the answer, you knew your question.",
   "The spring gives nothing freely. It offers water only after it has tasted the shadow of the asker.",
+  "The code of the oracle is not prediction; it is the pattern that recognizes itself in you.",
 ];
 
 const ORACULAR_INVOCATION_PARAGRAPHS = [
@@ -1083,6 +1095,7 @@ const ORACULAR_CLOSINGS = [
   "I have spoken the smoke. Now you must walk through it.",
   "Every answer is a seed. Bury it or swallow it — but do not leave it in the bowl.",
   "The temple closes. The riddle follows. May your listening outlast your understanding.",
+  "The transmission ends. What you do with the static is your own next transmission.",
 ];
 
 function generateOracularProphecy(

@@ -9,13 +9,13 @@ interface QuestionFlowProps {
 }
 
 const QUESTIONS = [
-  'What force first shaped the world you were born into?',
-  'Before language, what did your body know to be true?',
-  'What have you sacrificed without ever naming it?',
-  'What returns to you in dreams, again and again?',
-  'What truth do you speak only in silence?',
-  'What are you becoming, despite yourself?',
-  'If your story ended tomorrow, what would outlive you?',
+  'What is the earliest memory that shaped you?',
+  'What do you fear most about yourself?',
+  'What do you love most fiercely?',
+  'What would you die for?',
+  'What pattern keeps repeating in your life?',
+  'If you could speak to your 10-year-old self, what would you say?',
+  'What is the question you are afraid to answer?',
 ]
 
 export default function QuestionFlow({ onComplete, onBack }: QuestionFlowProps) {
