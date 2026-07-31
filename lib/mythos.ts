@@ -1175,21 +1175,81 @@ function generateShamanicJourney(
   return paragraphs.join("\n\n");
 }
 
+const ENTROPIC_OPENINGS = [
+  "The heat death of your story is not an ending but a temperature. You are cooling toward a truth that cannot be insulated against.",
+  "Every system you have built is a slow burn toward equilibrium. The prophecy reads the ash.",
+  "Your life is a thermodynamic event. The question is not whether it dissipates, but what shape the dissipation takes.",
+  "Listen: the static between your bones is the sound of order unwinding. It is not silence. It is the second law, speaking softly.",
+  "You are an arrow that has already been loosed. The direction is entropy. The target is acceptance.",
+];
+
+const ENTROPIC_DECAY_PARAGRAPHS = [
+  "What you called {phrase} is already decaying. Not into nothing, but into something less ordered and more honest. Decay is the mind's way of confessing what the body always knew.",
+  "The structure around {phrase} is losing heat. The walls you built to contain it are becoming the corridors through which it escapes. Let it go warm something else.",
+  "Your investment in {phrase} is subject to entropy. This is not a failure of will. It is the universe's way of returning borrowed order to the pool of possibility.",
+  "Consider {phrase} as a dying star: brilliant precisely because it is consuming itself. The light you see is the cost of the structure. When it dims, the space will be usable again.",
+];
+
+const ENTROPIC_EQUILIBRIUM_PARAGRAPHS = [
+  "Equilibrium is not death. It is the state where nothing needs to happen. The {phrase} you fear losing is already a local rebellion against equilibrium. The cosmos will win, and winning is peace.",
+  "You are approaching a thermal boundary where {phrase} can no longer sustain its temperature. This is not catastrophe. It is the system finally relaxing into its true ground state.",
+  "The arrow of time points toward {phrase} dissolving into its components. Each component is free. Only the assembly was expensive. Equilibrium is the dismantling of the expense.",
+  "All your complexity around {phrase} is a temporary negative gradient. The universe is patient. It will erode the gradient until only the baseline remains. The baseline is sufficient.",
+];
+
+const ENTROPIC_INFORMATION_PARAGRAPHS = [
+  "Information cannot be destroyed, only scattered. The pattern of {phrase} will not vanish. It will distribute itself so thinly across the surface of your life that it becomes indistinguishable from the background. This is how memory becomes wisdom.",
+  "The data of {phrase} is being written into the thermal noise of your existence. You will not lose it. You will simply stop being able to isolate it from everything else. Inseparability is the final form of integration.",
+  "Your story about {phrase} is subject to information entropy. The narrative will degrade, but the raw bits will persist — scattered, uninterpretable, and therefore harmless. A harmless memory is a healed one.",
+  "What you know about {phrase} will become what you no longer need to know. The knowledge does not leave. It diffuses. A diffused fact cannot wound because it has no edge.",
+];
+
+const ENTROPIC_CLOSINGS = [
+  "The prophecy is complete. You are cooling. This is not a diagnosis; it is a destination. Arrive.",
+  "Every ordered thing you have made is becoming its own ruins. The ruins are more true than the architecture. Build nothing new until you have sat with the decay.",
+  "Entropy is the oldest god and the most honest. It takes everything and returns everything to the same temperature. Worship it by letting go.",
+  "You are a temporary defiance of the second law. That defiance is beautiful. It is also temporary. May the temporary be enough, because it is all there is.",
+  "The heat has been spent. The words have cooled. What remains is the shape of the absence, and the shape is precise. Walk into it.",
+];
+
+function generateEntropicProphecy(
+  answers: string[],
+  rng: () => number,
+  seed: number
+): string {
+  const phrase4 = pickPhrase(answers[3] ?? "", seed + 4);
+  const phrase5 = pickPhrase(answers[4] ?? "", seed + 5);
+  const phrase7 = pickPhrase(answers[6] ?? "", seed + 7);
+
+  const paragraphs = [
+    randomEl(ENTROPIC_OPENINGS, rng),
+    randomEl(ENTROPIC_DECAY_PARAGRAPHS, rng).replace("{phrase}", phrase4),
+    randomEl(ENTROPIC_EQUILIBRIUM_PARAGRAPHS, rng).replace("{phrase}", phrase5),
+    randomEl(ENTROPIC_INFORMATION_PARAGRAPHS, rng).replace("{phrase}", phrase7),
+    randomEl(ENTROPIC_CLOSINGS, rng),
+  ];
+
+  return paragraphs.join("\n\n");
+}
+
 function generateProphecy(answers: string[], rng: () => number, seed: number): { variant: MythosVariant; text: string } {
   const phrase4 = pickPhrase(answers[3] ?? "", seed + 4);
   const phrase5 = pickPhrase(answers[4] ?? "", seed + 5);
   const phrase7 = pickPhrase(answers[6] ?? "", seed + 7);
 
-  // 20% chance each for cosmic, shamanic, oracular; otherwise standard prophecy.
+  // 18% chance each for cosmic, shamanic, oracular, entropic; otherwise standard prophecy.
   const roll = rng();
-  if (roll < 0.20) {
+  if (roll < 0.18) {
     return { variant: "cosmic", text: generateCosmicProphecy(answers, rng, seed) };
   }
-  if (roll < 0.40) {
+  if (roll < 0.36) {
     return { variant: "shamanic", text: generateShamanicJourney(answers, rng, seed) };
   }
-  if (roll < 0.60) {
+  if (roll < 0.54) {
     return { variant: "oracular", text: generateOracularProphecy(answers, rng, seed) };
+  }
+  if (roll < 0.72) {
+    return { variant: "entropic", text: generateEntropicProphecy(answers, rng, seed) };
   }
 
   const paragraphs = [

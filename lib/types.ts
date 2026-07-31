@@ -8,7 +8,7 @@ export interface SigilData {
   seed: number;
 }
 
-export type MythosVariant = "standard" | "cosmic" | "shamanic" | "oracular";
+export type MythosVariant = "standard" | "cosmic" | "shamanic" | "oracular" | "entropic";
 
 export interface MythosData {
   name: string;
