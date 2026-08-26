@@ -2,21 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-canvas: #0D0F12;
+  --color-surface: #15181E;
+  --color-surface-hi: #1A1E24;
+  --color-border: rgba(255,255,255,0.08);
+  --color-border-hi: rgba(255,255,255,0.14);
+  --color-cream: #F4F3EE;
+  --color-ink: #F4F3EE;
+  --color-ink-2: #9EA4B0;
+  --color-ink-3: #5C6370;
+  --color-ink-ghost: rgba(244,243,238,0.20);
+  --color-signal: #FF5500;
+  --color-signal-dim: rgba(255,85,0,0.15);
+  --color-solar-core: #FFE566;
+  --color-solar-blaze: #FF5500;
+  --color-solar-amber: #B33600;
+}
+
 * {
   border-radius: 0 !important;
 }
 
 html,
 body {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #0D0F12;
+  color: #9EA4B0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: #FF4D00;
-  color: #000000;
+  background-color: #FF5500;
+  color: #0D0F12;
 }
 
 ::-webkit-scrollbar {
@@ -25,11 +43,11 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #0D0F12;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #FF4D00;
+  background: #FF5500;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -58,7 +76,7 @@ body {
     top: 0;
     width: 100%;
     background: #ffffff !important;
-    color: #000000 !important;
+    color: #0D0F12 !important;
   }
 
   #mythos-print-area h1,
@@ -67,6 +85,6 @@ body {
   #mythos-print-area p,
   #mythos-print-area span,
   #mythos-print-area div {
-    color: #000000 !important;
+    color: #0D0F12 !important;
   }
 }

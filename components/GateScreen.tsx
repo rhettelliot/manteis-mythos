@@ -8,7 +8,7 @@ interface GateScreenProps {
 
 export default function GateScreen({ onEnter }: GateScreenProps) {
   return (
-    <div className="relative min-h-screen w-full bg-black flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-screen w-full bg-canvas flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -31,10 +31,10 @@ export default function GateScreen({ onEnter }: GateScreenProps) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <h1 className="text-7xl sm:text-8xl md:text-9xl font-sans font-bold tracking-[-0.05em] text-white uppercase mb-4">
+        <h1 className="text-7xl sm:text-8xl md:text-9xl font-sans font-bold tracking-[-0.05em] text-ink uppercase mb-4">
           MYTHOS
         </h1>
-        <p className="font-mono text-xs sm:text-sm tracking-[0.25em] text-white/50 uppercase mb-12">
+        <p className="font-mono text-xs sm:text-sm tracking-[0.25em] text-ink/50 uppercase mb-12">
           Engine of Personal Mythology
         </p>
 
@@ -45,7 +45,7 @@ export default function GateScreen({ onEnter }: GateScreenProps) {
           ENTER THE MYTHOS
         </button>
 
-        <p className="mt-8 font-mono text-xs tracking-[0.15em] text-white/30 uppercase">
+        <p className="mt-8 font-mono text-xs tracking-[0.15em] text-ink-3 uppercase">
           7 questions. 1 mythology.
         </p>
       </motion.div>

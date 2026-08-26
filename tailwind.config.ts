@@ -8,9 +8,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        orange: '#FF4D00',
-        blue: '#007AFF',
-        green: '#00D455',
+        canvas: '#0D0F12',
+        surface: '#15181E',
+        'surface-hi': '#1A1E24',
+        border: 'rgba(255,255,255,0.08)',
+        'border-hi': 'rgba(255,255,255,0.14)',
+        cream: '#F4F3EE',
+        ink: '#F4F3EE',
+        'ink-2': '#9EA4B0',
+        'ink-3': '#5C6370',
+        'ink-ghost': 'rgba(244,243,238,0.20)',
+        signal: '#FF5500',
+        'signal-dim': 'rgba(255,85,0,0.15)',
+        'solar-core': '#FFE566',
+        'solar-blaze': '#FF5500',
+        'solar-amber': '#B33600',
+        orange: '#FF5500',
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],

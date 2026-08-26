@@ -55,7 +55,7 @@ export default function QuestionFlow({ onComplete, onBack }: QuestionFlowProps) 
   const counter = `${String(current + 1).padStart(2, '0')} / ${String(QUESTIONS.length).padStart(2, '0')}`
 
   return (
-    <div className="min-h-screen w-full bg-black flex flex-col">
+    <div className="min-h-screen w-full bg-canvas flex flex-col">
       <div className="fixed top-0 left-0 right-0 h-[2px] bg-white/10 z-50">
         <motion.div
           className="h-full bg-orange"
@@ -65,7 +65,7 @@ export default function QuestionFlow({ onComplete, onBack }: QuestionFlowProps) 
         />
       </div>
 
-      <div className="fixed top-6 right-6 font-mono text-xs tracking-[0.2em] text-white/40 z-50">
+      <div className="fixed top-6 right-6 font-mono text-xs tracking-[0.2em] text-ink-3 z-50">
         {counter}
       </div>
 
@@ -80,7 +80,7 @@ export default function QuestionFlow({ onComplete, onBack }: QuestionFlowProps) 
             transition={{ duration: 0.35, ease: 'easeInOut' }}
             className="w-full max-w-2xl flex flex-col items-center"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-medium text-white text-center leading-tight tracking-[-0.02em] mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-medium text-ink text-center leading-tight tracking-[-0.02em] mb-12">
               {QUESTIONS[current]}
             </h2>
 
@@ -88,7 +88,7 @@ export default function QuestionFlow({ onComplete, onBack }: QuestionFlowProps) 
               value={currentAnswer}
               onChange={(e) => handleAnswerChange(e.target.value)}
               placeholder="Type your answer here..."
-              className="w-full min-h-[120px] bg-black border border-white/[0.12] p-5 font-mono text-white placeholder:text-white/30 focus:border-orange focus:outline-none resize-none text-sm leading-relaxed"
+              className="w-full min-h-[120px] bg-canvas border border-white/[0.12] p-5 font-mono text-ink placeholder:text-ink-3 focus:border-orange focus:outline-none resize-none text-sm leading-relaxed"
               autoFocus
             />
 
@@ -108,7 +108,7 @@ export default function QuestionFlow({ onComplete, onBack }: QuestionFlowProps) 
       <div className="fixed bottom-6 left-6 z-50">
         <button
           onClick={handleBack}
-          className="font-mono text-xs tracking-[0.15em] text-white/30 uppercase hover:text-white/60 transition-colors"
+          className="font-mono text-xs tracking-[0.15em] text-ink-3 uppercase hover:text-ink-2 transition-colors"
         >
           ← Back
         </button>

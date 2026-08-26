@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${mono.variable}`}>
-      <body className="bg-black text-mythos-bone font-sans antialiased">
+      <body className="bg-canvas text-ink-2 antialiased">
         {children}
       </body>
     </html>

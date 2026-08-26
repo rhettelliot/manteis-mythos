@@ -42,17 +42,17 @@ function ShareContent() {
 
   if (isInvalid) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-black text-white px-6">
-        <div className="max-w-md border border-white/10 bg-white/5 backdrop-blur-xl p-10 text-center">
+      <main className="min-h-screen flex items-center justify-center bg-canvas text-ink px-6">
+        <div className="max-w-md border border-border bg-surface  p-10 text-center">
           <h1 className="text-2xl font-medium tracking-tight mb-4">
             No mythos found.
           </h1>
-          <p className="text-white/60 text-sm mb-8">
+          <p className="text-ink-2 text-sm mb-8">
             The shared link appears to be missing or invalid.
           </p>
           <Link
             href="/"
-            className="inline-block border-2 border-orange px-8 py-3 text-sm font-medium uppercase tracking-[0.2em] text-orange hover:bg-orange hover:text-black transition"
+            className="inline-block border-2 border-orange px-8 py-3 text-sm font-medium uppercase tracking-[0.2em] text-orange hover:bg-orange hover:text-canvas transition"
           >
             Return Home
           </Link>

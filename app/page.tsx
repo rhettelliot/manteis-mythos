@@ -76,14 +76,14 @@ export default function Home() {
 
   if (!isHydrated) {
     return (
-      <main className="min-h-screen bg-black flex items-center justify-center">
+      <main className="min-h-screen bg-canvas flex items-center justify-center">
         <div className="w-3 h-3 bg-orange animate-pulse" />
       </main>
     )
   }
 
   return (
-    <main className="min-h-screen bg-black overflow-x-hidden">
+    <main className="min-h-screen bg-canvas overflow-x-hidden">
       <AnimatePresence mode="wait">
         {state === 'gate' && (
           <motion.div
@@ -113,7 +113,7 @@ export default function Home() {
         {state === 'generating' && (
           <motion.div
             key="generating"
-            className="min-h-screen flex flex-col items-center justify-center bg-black"
+            className="min-h-screen flex flex-col items-center justify-center bg-canvas"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -126,7 +126,7 @@ export default function Home() {
                 transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
               />
               <motion.div
-                className="absolute inset-4 border border-blue/30"
+                className="absolute inset-4 border border-signal/30"
                 animate={{ rotate: -360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
               />
@@ -150,7 +150,7 @@ export default function Home() {
                 ...
               </motion.span>
             </h2>
-            <p className="mt-4 font-mono text-xs text-white/30 tracking-widest">
+            <p className="mt-4 font-mono text-xs text-ink-3 tracking-widest">
               ALIGNING ARCHETYPES
             </p>
           </motion.div>

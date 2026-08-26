@@ -62,7 +62,7 @@ export function QuestionCard({
             onChange={(e) => onAnswerChange(e.target.value)}
             onKeyDown={handleKeyDown}
             rows={6}
-            className="w-full bg-black/50 text-mythos-bone p-5 font-sans font-light text-base resize-none outline-none placeholder:text-mythos-bone/20"
+            className="w-full bg-canvas/50 text-mythos-bone p-5 font-sans font-light text-base resize-none outline-none placeholder:text-mythos-bone/20"
             placeholder="Speak plainly. The engine listens."
           />
         </div>

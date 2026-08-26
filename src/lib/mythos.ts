@@ -238,7 +238,7 @@ function generateSigilSvg(seed: number): string {
 
   const circles = [90, 140, 170]
     .filter(() => rng() > 0.25)
-    .map((r) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#007AFF" stroke-width="${rng() > 0.5 ? 1.2 : 0.8}" />`)
+    .map((r) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#FF5500" stroke-width="${rng() > 0.5 ? 1.2 : 0.8}" />`)
     .join("");
 
   const glyphCount = clamp(3 + Math.floor(rng() * 6), 3, 10);
@@ -261,7 +261,7 @@ function generateSigilSvg(seed: number): string {
       const y1 = y + Math.sin(angle) * len;
       const x2 = x - Math.cos(angle) * len;
       const y2 = y - Math.sin(angle) * len;
-      return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#007AFF" stroke-width="1.5" />`;
+      return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#FF5500" stroke-width="1.5" />`;
     })
     .join("");
 
@@ -272,8 +272,8 @@ function generateSigilSvg(seed: number): string {
   <g fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="${polygon(outer)}" stroke="#FF4D00" stroke-width="2" />
     <path d="${polygon(mid)}" stroke="#FF4D00" stroke-width="1.2" />
-    <path d="${polygon(inner)}" stroke="#007AFF" stroke-width="1.8" />
-    <path d="${spokes}" stroke="#007AFF" stroke-width="0.9" />
+    <path d="${polygon(inner)}" stroke="#FF5500" stroke-width="1.8" />
+    <path d="${spokes}" stroke="#FF5500" stroke-width="0.9" />
     ${circles}
     ${glyphs}
     ${crosses}

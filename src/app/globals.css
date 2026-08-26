@@ -3,79 +3,58 @@
 @tailwind utilities;
 
 :root {
-  --font-inter: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-canvas: #0D0F12;
+  --color-surface: #15181E;
+  --color-border: rgba(255,255,255,0.08);
+  --color-ink: #F4F3EE;
+  --color-ink-2: #9EA4B0;
+  --color-ink-3: #5C6370;
+  --color-signal: #FF5500;
 }
 
 html, body {
-  background: #000000;
-  color: #EDEDED;
+  background: var(--color-canvas);
+  color: var(--color-ink-2);
+  font-family: var(--font-inter);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Sharp corners everywhere — Swiss mandate */
 * {
   border-radius: 0 !important;
 }
 
-/* Glassmorphic panel primitive */
 .glass {
-  background: rgba(10, 10, 10, 0.6);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
 }
 
 .glass-orange {
-  background: rgba(255, 77, 0, 0.04);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 77, 0, 0.25);
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 85, 0, 0.25);
 }
 
 .glass-blue {
-  background: rgba(0, 122, 255, 0.04);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(0, 122, 255, 0.25);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
 }
 
-/* Typewriter caret */
 .caret::after {
   content: "▊";
-  color: #FF4D00;
+  color: var(--color-signal);
   animation: flicker 1s steps(1) infinite;
   margin-left: 2px;
 }
 
-/* Scanline overlay */
-.scanlines::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0.015) 0px,
-    rgba(255, 255, 255, 0.015) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  pointer-events: none;
-  z-index: 1;
-}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-canvas); }
+::-webkit-scrollbar-thumb { background: var(--color-signal); }
 
-/* Print styles for PDF export */
 @media print {
   .no-print { display: none !important; }
-  body, html { background: #000 !important; }
+  body, html { background: #0D0F12 !important; }
   .print-page {
     page-break-after: always;
     break-after: page;
   }
 }
-
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #FF4D00; }

@@ -69,14 +69,14 @@ export default function Sigil({ sigil }: SigilProps) {
           </filter>
         </defs>
 
-        <rect x="-150" y="-150" width="300" height="300" fill="#000000" />
+        <rect x="-150" y="-150" width="300" height="300" fill="#0D0F12" />
 
         <circle
           cx="0"
           cy="0"
           r={outerRadius}
           fill="none"
-          stroke="#007AFF"
+          stroke="#FF5500"
           strokeWidth="0.5"
           opacity="0.3"
         />
@@ -85,7 +85,7 @@ export default function Sigil({ sigil }: SigilProps) {
           cy="0"
           r={innerRadius}
           fill="none"
-          stroke="#007AFF"
+          stroke="#FF5500"
           strokeWidth="0.5"
           opacity="0.4"
         />

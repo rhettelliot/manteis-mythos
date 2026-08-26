@@ -155,7 +155,7 @@ function MythosInner() {
 
   if (!isHydrated) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-black">
+      <main className="min-h-screen flex items-center justify-center bg-canvas">
         <div className="font-mono text-[10px] tracking-[0.3em] text-mythos-orange animate-pulse-slow">
           INITIALIZING MYTHOS ENGINE
         </div>
@@ -164,7 +164,7 @@ function MythosInner() {
   }
 
   return (
-    <main className="min-h-screen bg-black text-mythos-bone relative overflow-x-hidden">
+    <main className="min-h-screen bg-canvas text-mythos-bone relative overflow-x-hidden">
       <div className="fixed inset-0 scanlines pointer-events-none z-50" />
       <AnimatePresence mode="wait" initial={false}>
         {content}
@@ -175,16 +175,19 @@ function MythosInner() {
 
 export default function MythosPage() {
   return (
-    <Suspense
-      fallback={
-        <main className="min-h-screen flex items-center justify-center bg-black">
-          <div className="font-mono text-[10px] tracking-[0.3em] text-mythos-orange animate-pulse-slow">
-            INITIALIZING MYTHOS ENGINE
-          </div>
-        </main>
-      }
-    >
-      <MythosInner />
-    </Suspense>
+    <>
+      <h1 className="sr-only">MYTHOS — Personal Mythology Engine</h1>
+      <Suspense
+        fallback={
+          <main className="min-h-screen flex items-center justify-center bg-canvas">
+            <div className="font-mono text-[10px] tracking-[0.3em] text-mythos-orange animate-pulse-slow">
+              INITIALIZING MYTHOS ENGINE
+            </div>
+          </main>
+        }
+      >
+        <MythosInner />
+      </Suspense>
+    </>
   );
 }

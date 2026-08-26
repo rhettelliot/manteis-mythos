@@ -9,7 +9,7 @@ interface GlassPanelProps {
 
 export default function GlassPanel({ children, className = '' }: GlassPanelProps) {
   return (
-    <div className={`bg-white/[0.03] backdrop-blur-xl border border-white/[0.1] p-6 sm:p-8 ${className}`}>
+    <div className={`bg-surface border border-border p-6 sm:p-8 ${className}`}>
       {children}
     </div>
   )

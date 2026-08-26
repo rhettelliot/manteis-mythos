@@ -59,11 +59,11 @@ export default function MythosDisplay({ mythos, answers, onReset }: MythosDispla
   ]
 
   return (
-    <div className="min-h-screen bg-black pb-32">
+    <div className="min-h-screen bg-canvas pb-32">
       <div id="mythos-print-area" className="max-w-3xl mx-auto px-6 pt-20 sm:pt-28">
         <header className="text-center mb-16">
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl font-sans font-bold text-white tracking-[-0.05em] uppercase mb-6"
+            className="text-5xl sm:text-6xl md:text-7xl font-sans font-bold text-ink tracking-[-0.05em] uppercase mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -98,7 +98,7 @@ export default function MythosDisplay({ mythos, answers, onReset }: MythosDispla
                 </h2>
                 <div className="flex-1 h-px bg-orange/40" />
               </div>
-              <div className="font-serif text-lg sm:text-xl text-white leading-relaxed max-w-2xl mx-auto">
+              <div className="font-sans text-lg sm:text-xl text-ink leading-relaxed max-w-2xl mx-auto">
                 {index <= completedChapters ? (
                   <Typewriter
                     text={chapter.text}
@@ -120,30 +120,30 @@ export default function MythosDisplay({ mythos, answers, onReset }: MythosDispla
           transition={{ duration: 0.6 }}
         >
           <GlassPanel className="max-w-2xl w-full text-center">
-            <p className="font-serif text-lg text-white/80 italic leading-relaxed">
+            <p className="font-sans text-lg text-ink/80 italic leading-relaxed">
               {mythos.archetypeDescription}
             </p>
           </GlassPanel>
         </motion.div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-xl border-t border-white/[0.08] z-50 print:hidden">
+      <div className="fixed bottom-0 left-0 right-0 bg-surface  border-t border-white/[0.08] z-50 print:hidden">
         <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between sm:justify-end gap-4">
           <button
             onClick={handlePrint}
-            className="font-mono text-xs tracking-[0.15em] text-white/60 uppercase px-4 py-3 border border-white/20 hover:border-orange hover:text-orange transition-colors"
+            className="font-mono text-xs tracking-[0.15em] text-ink-2 uppercase px-4 py-3 border border-white/20 hover:border-orange hover:text-orange transition-colors"
           >
             ↓ Download PDF
           </button>
           <button
             onClick={handleShare}
-            className="font-mono text-xs tracking-[0.15em] text-white/60 uppercase px-4 py-3 border border-white/20 hover:border-orange hover:text-orange transition-colors"
+            className="font-mono text-xs tracking-[0.15em] text-ink-2 uppercase px-4 py-3 border border-white/20 hover:border-orange hover:text-orange transition-colors"
           >
             {shareStatus === 'copied' ? '↗ Copied' : '↗ Share'}
           </button>
           <button
             onClick={onReset}
-            className="font-mono text-xs tracking-[0.15em] text-white/60 uppercase px-4 py-3 border border-white/20 hover:border-orange hover:text-orange transition-colors"
+            className="font-mono text-xs tracking-[0.15em] text-ink-2 uppercase px-4 py-3 border border-white/20 hover:border-orange hover:text-orange transition-colors"
           >
             ↺ Begin Again
           </button>
