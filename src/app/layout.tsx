@@ -28,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${mono.variable}`}>
       <body className="bg-canvas text-ink-2 antialiased">
+        <h1 className="sr-only">MYTHOS — Personal Mythology Engine</h1>
         {children}
       </body>
     </html>
