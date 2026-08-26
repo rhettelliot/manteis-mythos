@@ -180,6 +180,7 @@ export default function MythosPage() {
       <Suspense
         fallback={
           <main className="min-h-screen flex items-center justify-center bg-canvas">
+            <h1 className="sr-only">MYTHOS — Personal Mythology Engine</h1>
             <div className="font-mono text-[10px] tracking-[0.3em] text-mythos-orange animate-pulse-slow">
               INITIALIZING MYTHOS ENGINE
             </div>
