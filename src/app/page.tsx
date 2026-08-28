@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState, useCallback, Suspense } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
-import { Gate } from "@/components/Gate";
 import { QuestionCard } from "@/components/QuestionCard";
 import { Generating } from "@/components/Generating";
 import { MythosDocument } from "@/components/MythosDocument";
@@ -24,7 +23,7 @@ function MythosInner() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [phase, setPhase] = useState<Phase>("gate");
+  const [phase, setPhase] = useState<Phase>("questions");
   const [answers, setAnswers] = useState<string[]>(Array(QUESTIONS.length).fill(""));
   const [questionIndex, setQuestionIndex] = useState(0);
   const [mythos, setMythos] = useState<MythosData | null>(null);
@@ -62,20 +61,6 @@ function MythosInner() {
     },
     [router, pathname]
   );
-
-  const enterQuestions = useCallback(() => {
-    setPhase("questions");
-    setQuestionIndex(0);
-  }, []);
-
-  const resumeMythos = useCallback(() => {
-    if (saved) {
-      setMythos(saved.mythos);
-      setAnswers(saved.answers);
-      updateUrl(saved.seed, saved.answers);
-      setPhase("mythos");
-    }
-  }, [saved, updateUrl]);
 
   const handleAnswerChange = useCallback((value: string) => {
     setAnswers((prev) => {
@@ -118,8 +103,6 @@ function MythosInner() {
 
   const content = useMemo(() => {
     switch (phase) {
-      case "gate":
-        return <Gate onEnter={enterQuestions} onResume={saved ? resumeMythos : undefined} />;
       case "questions":
         return (
           <QuestionCard
@@ -144,9 +127,6 @@ function MythosInner() {
     questionIndex,
     answers,
     mythos,
-    saved,
-    enterQuestions,
-    resumeMythos,
     handleAnswerChange,
     handleContinue,
     handleBack,
