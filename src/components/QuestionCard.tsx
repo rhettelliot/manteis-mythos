@@ -55,14 +55,14 @@ export function QuestionCard({
           {question}
         </h2>
 
-        <div className="glass p-1 mb-8">
+        <div className="solid p-1 mb-8">
           <textarea
             ref={textareaRef}
             value={answer}
             onChange={(e) => onAnswerChange(e.target.value)}
             onKeyDown={handleKeyDown}
             rows={6}
-            className="w-full bg-canvas/50 text-mythos-bone p-5 font-sans font-light text-base resize-none outline-none placeholder:text-mythos-bone/20"
+            className="w-full bg-canvas text-mythos-bone p-5 font-sans font-light text-base resize-none outline-none placeholder:text-ink-3"
             placeholder="Speak plainly. The engine listens."
           />
         </div>
@@ -80,7 +80,7 @@ export function QuestionCard({
 
           <button
             onClick={onContinue}
-            className="glass-orange px-6 py-3 font-mono text-[10px] tracking-[0.25em] text-mythos-orange hover:bg-mythos-orange/10 active:scale-[0.98] transition-colors"
+            className="solid-orange px-6 py-3 font-mono text-[10px] tracking-[0.25em] text-mythos-orange hover:bg-mythos-orange/10 active:scale-[0.98] transition-colors"
           >
             CONTINUE
           </button>

@@ -26,7 +26,7 @@ const config: Config = {
         orange: '#FF5500',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
         mono: ['var(--font-jetbrains-mono)', 'monospace'],
       },
       borderRadius: {

@@ -12,7 +12,7 @@ export function ProgressBar({ total, current }: ProgressBarProps) {
         <div
           key={i}
           className={`h-1 flex-1 transition-all duration-500 ${
-            i < current ? "bg-mythos-orange" : "bg-mythos-bone/10"
+            i < current ? "bg-mythos-orange" : "progress-incomplete"
           }`}
         />
       ))}

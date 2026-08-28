@@ -94,7 +94,7 @@ export function MythosDocument({ mythos, onReset }: MythosDocumentProps) {
         </section>
 
         <motion.aside
-          className="glass-blue p-6 mb-16 print:mb-8"
+          className="solid-blue p-6 mb-16 print:mb-8"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.3, type: "spring", stiffness: 450, damping: 34 }}
@@ -112,19 +112,19 @@ export function MythosDocument({ mythos, onReset }: MythosDocumentProps) {
         >
           <button
             onClick={handleShare}
-            className="glass px-5 py-3 font-mono text-[10px] tracking-[0.2em] text-mythos-bone hover:bg-mythos-bone/5 transition-colors"
+            className="solid px-5 py-3 font-mono text-[10px] tracking-[0.2em] text-mythos-bone hover:bg-mythos-bone/5 transition-colors"
           >
             COPY LINK
           </button>
           <button
             onClick={handlePrint}
-            className="glass-blue px-5 py-3 font-mono text-[10px] tracking-[0.2em] text-mythos-blue hover:bg-mythos-blue/10 transition-colors"
+            className="solid-blue px-5 py-3 font-mono text-[10px] tracking-[0.2em] text-mythos-blue hover:bg-mythos-blue/10 transition-colors"
           >
             DOWNLOAD PDF
           </button>
           <button
             onClick={onReset}
-            className="glass-orange px-5 py-3 font-mono text-[10px] tracking-[0.2em] text-mythos-orange hover:bg-mythos-orange/10 transition-colors"
+            className="solid-orange px-5 py-3 font-mono text-[10px] tracking-[0.2em] text-mythos-orange hover:bg-mythos-orange/10 transition-colors"
           >
             NEW MYTHOS
           </button>

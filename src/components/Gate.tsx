@@ -49,7 +49,7 @@ export function Gate({ onEnter, onResume }: GateProps) {
 
       <motion.button
         onClick={onEnter}
-        className="glass-orange px-10 py-4 font-mono text-xs tracking-[0.3em] text-mythos-orange hover:bg-mythos-orange/10 active:scale-[0.98] transition-colors"
+        className="solid-orange px-10 py-4 font-mono text-xs tracking-[0.3em] text-mythos-orange hover:bg-mythos-orange/10 active:scale-[0.98] transition-colors"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7, type: "spring", stiffness: 500, damping: 34 }}
