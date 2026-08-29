@@ -28,7 +28,7 @@ function MythosInner() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [mythos, setMythos] = useState<MythosData | null>(null);
   const [saved, setSaved] = useState<ReturnType<typeof loadMythos>>(null);
-  const [isHydrated, setIsHydrated] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(true);
 
   useEffect(() => {
     setIsHydrated(true);
