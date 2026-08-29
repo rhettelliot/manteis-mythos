@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import GateScreen from '@/components/GateScreen'
 import QuestionFlow from '@/components/QuestionFlow'
 import MythosDisplay from '@/components/MythosDisplay'
 import { generateMythos } from '@/lib/mythos'
@@ -10,16 +9,15 @@ import { saveMythos, loadMythos, clearMythos } from '@/lib/storage'
 import { decodeShareURL } from '@/lib/share'
 import type { MythosData } from '@/lib/types'
 
-type AppState = 'gate' | 'questions' | 'generating' | 'mythos'
+type AppState = 'questions' | 'generating' | 'mythos'
 
 export default function Home() {
-  const [state, setState] = useState<AppState>('gate')
+  const [state, setState] = useState<AppState>('questions')
   const [answers, setAnswers] = useState<string[]>([])
   const [mythos, setMythos] = useState<MythosData | null>(null)
-  const [isHydrated, setIsHydrated] = useState(false)
+  const [isHydrated, setIsHydrated] = useState(true)
 
   useEffect(() => {
-    setIsHydrated(true)
     if (typeof window === 'undefined') return
 
     const hash = window.location.hash
@@ -58,8 +56,6 @@ export default function Home() {
     return () => clearTimeout(timer)
   }, [state, answers])
 
-  const handleEnter = useCallback(() => setState('questions'), [])
-
   const handleQuestionsComplete = useCallback((completedAnswers: string[]) => {
     setAnswers(completedAnswers)
     setState('generating')
@@ -71,31 +67,12 @@ export default function Home() {
     }
     setAnswers([])
     setMythos(null)
-    setState('gate')
+    setState('questions')
   }, [])
-
-  if (!isHydrated) {
-    return (
-      <main className="min-h-screen bg-canvas flex items-center justify-center">
-        <div className="w-3 h-3 bg-orange animate-pulse" />
-      </main>
-    )
-  }
 
   return (
     <main className="min-h-screen bg-canvas overflow-x-hidden">
       <AnimatePresence mode="wait">
-        {state === 'gate' && (
-          <motion.div
-            key="gate"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <GateScreen onEnter={handleEnter} />
-          </motion.div>
-        )}
         {state === 'questions' && (
           <motion.div
             key="questions"
@@ -106,7 +83,7 @@ export default function Home() {
           >
             <QuestionFlow
               onComplete={handleQuestionsComplete}
-              onBack={() => setState('gate')}
+              onBack={() => setState('questions')}
             />
           </motion.div>
         )}
