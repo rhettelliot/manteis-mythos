@@ -85,3 +85,17 @@ html, body {
   white-space: nowrap;
   border: 0;
 }
+
+.blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.mono-data {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+}

@@ -145,10 +145,27 @@ function MythosInner() {
 
   return (
     <main className="min-h-screen bg-canvas text-mythos-bone relative overflow-x-hidden">
+      <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between border-b border-white/10 bg-canvas px-4 py-3">
+        <div className="flex items-center gap-2">
+          <span className="relative flex h-2 w-2">
+            <span className="blink absolute inline-flex h-full w-full rounded-none bg-mythos-orange opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-none bg-mythos-orange" />
+          </span>
+          <span className="mono-data text-[10px] tracking-[0.25em] text-mythos-bone/80">MYTHOS</span>
+        </div>
+        <span className="mono-data text-[10px] tracking-[0.2em] text-mythos-bone/40">EGREGORE</span>
+      </header>
       <div className="fixed inset-0 scanlines pointer-events-none z-50" />
-      <AnimatePresence mode="wait" initial={false}>
-        {content}
-      </AnimatePresence>
+      <div className="pt-14">
+        <AnimatePresence mode="wait" initial={false}>
+          {content}
+        </AnimatePresence>
+      </div>
+      <footer className="border-t border-white/10 bg-canvas px-4 py-4 text-center">
+        <p className="mono-data text-[10px] tracking-[0.3em] text-mythos-bone/40">
+          EGREGORE — MYTHOS · SIGIL · REVERIE
+        </p>
+      </footer>
     </main>
   );
 }
